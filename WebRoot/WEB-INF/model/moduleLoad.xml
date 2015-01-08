@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://dbfound.googlecode.com/model" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dbfound.googlecode.com/model https://raw.githubusercontent.com/nfwork/dbfound/master/tags/model.xsd">
+	<query name="load">
+	    <param name="role_id" sourcePath="session.role_id" dataType="number"/>
+		<sql>
+		  <![CDATA[
+			SELECT m.module_id, m.module_name ,m.module_code 
+			  FROM sys_module m 
+		     WHERE EXISTS (SELECT 1 FROM SYS_FUNCTION f,SYS_POWER p 
+		                           WHERE f.function_id= p.function_id
+		                             AND f.function_module = m.module_id
+		                             AND p.enable_flag = 'Y' 
+		                             AND p.role_id=${@role_id})
+			 ORDER BY m.priority 
+		   ]]>
+		</sql>
+	</query>
+</model>

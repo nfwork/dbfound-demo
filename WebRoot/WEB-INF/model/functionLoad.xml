@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://dbfound.googlecode.com/model" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dbfound.googlecode.com/model https://raw.githubusercontent.com/nfwork/dbfound/master/tags/model.xsd">
+	<query name="load">
+		<param name="role_id" dataType="number" scope="session" />
+		<sql>
+		  <![CDATA[
+			 SELECT f.function_des, 
+					f.jsp_pager,IFNULL(f.image,'image.gif') image ,
+					f.function_code,
+					f.function_module 
+			  FROM SYS_FUNCTION f,sys_power p 
+			 where f.function_id = p.function_id 
+			   and p.role_id =${@role_id}
+			   and p.enable_flag='Y' 
+			   #AND_CLAUSE# 
+			 ORDER BY f.priority
+		  ]]>
+		</sql>
+		<filter name="function_module" express="function_module =  ${@function_module} " />
+	</query>
+
+	<query name="init">
+		<param name="role_id" dataType="number" scope="session" />
+		<sql>
+		  <![CDATA[
+			 SELECT f.function_des, 
+					f.jsp_pager ,
+					IFNULL(f.image,'image.gif') image,
+					f.function_code,f.function_module
+		     FROM SYS_FUNCTION f,SYS_POWER p 
+			WHERE f.function_id = p.function_id 
+			  AND p.role_id =${@role_id} AND p.enable_flag='Y'
+		      AND f.function_module = (SELECT module_id FROM sys_module m WHERE EXISTS (SELECT 1 FROM SYS_FUNCTION f,SYS_POWER p WHERE f.function_id= p.function_id AND f.function_module = m.module_id AND p.enable_flag = 'Y' AND p.role_id=${@role_id}) ORDER BY priority LIMIT 1 )
+		    ORDER BY f.priority
+		  ]]>
+		</sql>
+	</query>
+</model>
