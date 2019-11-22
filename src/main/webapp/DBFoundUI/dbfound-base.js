@@ -259,6 +259,7 @@ $D = DBFound = {
 				if (null != cm.getCellEditor(colIndex)) {
 					cm.getCellEditor(colIndex).field.reset();
 					var editor = cm.getCellEditor(colIndex).field;
+					if(value===null){value="";}
 					if (!editor.validateValue(value)) {
 						$D.showWarning("字段："+ cm.config[colIndex].header+ "，验证通不过！", function(e) {
 							grid.startEditing(rowIndex, colIndex);
@@ -477,12 +478,22 @@ $D = DBFound = {
 	    	  }
 	    });
 	},getFullHeight:function(id){
-		var height = document.body.clientHeight;
+		var height = 0;
+		if(document.documentElement && document.documentElement.clientHeight>height){
+			height = document.documentElement.clientHeight;
+		}
+		if(document.body && document.body.clientHeight>height){
+			height=document.body.clientHeight;
+		}
+		
 		if(!id){
 			return height;
 		}else{
 			try{
-			   el = Ext.get(id+"_div");
+			   var el = Ext.get(id+"_div");
+			   if(el==null){
+				   el = Ext.get(id);
+			   }
 			   var bottom = el.getMargins().bottom;
 			   return height - el.getY() - bottom;
 			}catch(e){
@@ -490,12 +501,22 @@ $D = DBFound = {
 			}
 		}
 	},getFullWidth:function(id){
-		var width = document.body.clientWidth;
+		var width = 0;
+		if(document.documentElement && document.documentElement.clientWidth > width){
+			width = document.documentElement.clientWidth;
+		}
+		if(document.body && document.body.clientWidth > width){
+			width=document.body.clientWidth;
+		}
+		
 		if(!id){
 			return width;
 		}else{
 			try{
-			   el = Ext.get(id+"_div");
+			   var el = Ext.get(id+"_div");
+			   if(el==null){
+				   el = Ext.get(id);
+			   }
 			   var right = el.getMargins().right;
 			   return width - el.getX() - right;
 			}catch(e){

@@ -4,7 +4,7 @@
 
 	<system>
 		<openLog>true</openLog>
-		<modeRootPath>${@projectRoot}/WEB-INF/model</modeRootPath>
+		<modeRootPath>${@classpath}/model</modeRootPath>
 	</system>
 
 	<database>
@@ -17,8 +17,8 @@
 				<property name="username" value="jbjava" />
 				<property name="password" value="jb98" />
 				<property name="initialSize" value="5" />
-				<property name="maxActive" value="200" />
-				<property name="maxIdle" value="10" />
+				<property name="maxActive" value="10" />
+				<property name="maxIdle" value="5" />
 				<property name="testOnBorrow" value="true" />
 				<property name="validationQuery" value="select 1" />
 			</properties>
@@ -28,7 +28,6 @@
 
 	<web>
 		<encoding>utf-8</encoding>
-		<mvcConfigFile>${@projectRoot}/WEB-INF/dbfound-mvc.xml</mvcConfigFile>
 		<interceptor>com.nfwork.demo.check.AccessCheckInterceptor
 		</interceptor>
 	</web>

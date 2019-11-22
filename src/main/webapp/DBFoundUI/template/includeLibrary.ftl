@@ -1,4 +1,4 @@
-<title>DBFound开发平台</title>
+<title>DBFound快速应用开发平台</title>
 <base href="${basePath}"/>
 <script type='text/javascript' src='${basePath}DBFoundUI/ext-base.js' charset='utf-8'></script>
 <script type='text/javascript' src='${basePath}DBFoundUI/ext-all.js' charset='utf-8'></script>
