@@ -35,7 +35,7 @@
 	<body>
 	    <d:initProcedure>
 	        <d:dataSet id="statusStore" modelName="job/jobStatus" queryName="priority_combo" />
-	        <d:query modelName="job/jobHeader" queryName="update_query" rootPath="headerStore"></d:query>
+	        <d:query modelName="job/jobHeader" queryName="update_query" rootPath="request.headerStore"/>
 	    </d:initProcedure>
 	    
 		<d:form labelWidth="70">

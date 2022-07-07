@@ -66,8 +66,8 @@
    
 	<body style="overflow:hidden">
 	    <d:initProcedure>
-	        <d:query modelName="job/jobHeader" queryName="update_query" rootPath="headerStore"></d:query>
-	        <d:query modelName="job/jobQuery"  rootPath="lineStore"></d:query>
+	        <d:query modelName="job/jobHeader" queryName="update_query" rootPath="request.headerStore"/>
+	        <d:query modelName="job/jobQuery"  rootPath="request.lineStore"/>
 	    </d:initProcedure>
 	    
 		<d:form id="headerForm" title="作业信息" labelWidth="80">

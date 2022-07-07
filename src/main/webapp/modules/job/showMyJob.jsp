@@ -23,8 +23,8 @@
    
 	<body>
 	    <d:initProcedure>
-	        <d:query modelName="job/jobHeader" queryName="update_query" rootPath="headerStore"></d:query>
-	        <d:query modelName="job/jobQuery"  rootPath="lineStore"></d:query>
+	        <d:query modelName="job/jobHeader" queryName="update_query" rootPath="request.headerStore"/>
+	        <d:query modelName="job/jobQuery"  rootPath="request.lineStore"/>
 	    </d:initProcedure>
 	    
 		<d:form title="作业信息" labelWidth="80">
@@ -47,7 +47,7 @@
 			<d:line columnWidth="0.8">
 				<d:field name="description" anchor="98%" value="${lineStore[0].description}" readOnly="true" editor="textarea" prompt="提交信息" />
 				<d:field name="upButton" editor="button" columnWidth="0.2" width="80" prompt="附件查看(${lineStore[0].att_num})">
-					<d:event name="click" handle="uploadAtt"></d:event>
+					<d:event name="click" handle="uploadAtt"/>
 				</d:field>
 			</d:line>
 		</d:form>
@@ -63,7 +63,7 @@
 			</d:line>
 		</d:form>
 		<d:buttonGroup>
-		   <d:button title="返回" click="back" ></d:button>
+		   <d:button title="返回" click="back" />
 		</d:buttonGroup>
 	</body>
 </html>

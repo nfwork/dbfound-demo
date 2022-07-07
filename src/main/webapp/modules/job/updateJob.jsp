@@ -46,9 +46,9 @@
 	</script>
 	<body style="overflow:hidden">
 	    <d:initProcedure>
-		    <d:query modelName="job/jobHeader" queryName="update_query" rootPath="headerStore"></d:query>
+		    <d:query modelName="job/jobHeader" queryName="update_query" rootPath="request.headerStore"/>
 		    <d:dataSet id="class_ds" modelName="fnd/class" queryName="combo" />
-		    <d:dataSet id="course_ds" modelName="fnd/course" queryName="add_combo" sourcePath="headerStore[0]" />
+		    <d:dataSet id="course_ds" modelName="fnd/course" queryName="add_combo" sourcePath="request.headerStore[0]" />
 	    </d:initProcedure>
 	    
 		<d:form id="queryForm" height="200" labelWidth="80">
@@ -58,7 +58,7 @@
 			</d:line>
 			<d:line columnWidth="0.5">
 			    <d:field name="class_id" value="${headerStore[0].class_id}" required="true"  options="class_ds" valueField ="class_id" displayField="class_name" width="210" editor="combo" prompt="所对班级" >
-			     <d:event name="select" handle="resetCourse"></d:event>
+			     <d:event name="select" handle="resetCourse"/>
 			    </d:field>
 			    <d:field name="status" value="${headerStore[0].status_name}" readOnly="true" width="210" editor="textfield"  prompt="状态" />
 			</d:line>
@@ -71,7 +71,7 @@
 			</d:line>
 		</d:form>
 		<d:buttonGroup align="center">
-		    <d:button title="返回" click="close" ></d:button>
+		    <d:button title="返回" click="close" />
 			<d:button title="保存" icon="DBFoundUI/images/save.gif"  click="update" />
 		</d:buttonGroup>
 	</body>

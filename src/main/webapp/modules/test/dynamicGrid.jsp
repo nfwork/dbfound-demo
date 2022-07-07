@@ -7,7 +7,7 @@
 		<d:includeLibrary />
 	</head>
 	<body>
-		<d:query modelName="test/dynamic" queryName="getMeta" rootPath="metas"></d:query>
+		<d:query modelName="test/dynamic" queryName="getMeta" rootPath="request.metas"/>
 	    <d:grid id="userGrid" title="动态列表" height="365" model="sys/user" autoQuery="true" >
 			<d:columns>
 				<d:forEach items="${metas}" var="meta">
