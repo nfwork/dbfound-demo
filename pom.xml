@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>com.github.nfwork</groupId>
 			<artifactId>dbfound</artifactId>
-			<version>2.6.8</version>
+			<version>3.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
