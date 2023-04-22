@@ -8,9 +8,9 @@
 				r.role_code,
 				r.role_description,
 				r.last_update_by,
-				DATE_FORMAT(r.create_date,'%Y-%m-%d') create_date,
-				DATE_FORMAT(r.last_update_date,'%Y-%m-%d') last_update_date,
-				(select user_code from sys_user where user_id =r.last_update_by) user_code,
+				r.create_date,
+			    r.create_by,
+				r.last_update_date,
 			    (select CONCAT(CONCAT(user_code,'-'),user_name) from sys_user where user_id =r.last_update_by) last_update_user
 			FROM sys_role r
 			#WHERE_CLAUSE#

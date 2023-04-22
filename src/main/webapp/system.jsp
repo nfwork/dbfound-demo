@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.nfwork.dbfound.util.LogUtil"%>
+<%@ page import="com.nfwork.dbfound.core.DBFoundConfig" %>
 <%@ taglib uri="dbfound-tags" prefix="d"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -9,7 +10,7 @@
 	<script type="text/javascript">
 	function openLog() {
 		Ext.Ajax.request( {
-			url : 'log.execute!openLog',
+			url : 'log.execute?open=1',
 			params : null,
 			success : function(response, action) {
 				var obj = Ext.util.JSON.decode(response.responseText);
@@ -23,7 +24,7 @@
 
 	function closeLog() {
 		Ext.Ajax.request( {
-			url : 'log.execute!closeLog',
+			url : 'log.execute?open=0',
 			params : null,
 			success : function(response, action) {
 				var obj = Ext.util.JSON.decode(response.responseText);
@@ -36,24 +37,11 @@
 	}
 </script>
 	<body>
-	    <d:if test="${param.clear_flag=='true'}">
-		   <d:execute modelName="access" executeName="clear_cache" ></d:execute>
-		   <script type="text/javascript">
-		      Ext.Msg.alert('提示', '操作成功！');
-		   </script>
-		</d:if>
-		<d:if test="${param.model_clear_flag=='true'}">
-		   <d:execute modelName="access" executeName="clear_model_cache" ></d:execute>
-		   <script type="text/javascript">
-		      Ext.Msg.alert('提示', '操作成功！');
-		   </script>
-		</d:if>
-		
 		<h1 style="margin-left: 12px; margin-top: 12px;">
 			当前日志情况：
 			<font color="red"> 
 			         <%
-					 	if (LogUtil.openLog)
+					 	if (DBFoundConfig.isOpenLog())
 					 		out.print("开启");
 					 	else
 					 		out.print("关闭");

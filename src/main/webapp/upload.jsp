@@ -50,7 +50,7 @@
         } else {
             fileSize = target.files[0].size;
         }
-        var maxSize=<%=FileUploadUtil.maxUploadSize%>;
+		var maxSize = 10;
         if(fileSize>maxSize*1024*1024){
             $D.showMessage("上传文件大小不能大于"+maxSize+"M!");
             return false;
@@ -63,9 +63,9 @@
 	<body>
 	    <d:form id="uploadform" title="请选择文件" labelWidth="70" fileUpload="true" >
 			<d:line columnWidth="0.5">
-				<d:field columnWidth="0.7" name="file" id="file_cmp" anchor="90%" required="true" prompt="附 件" editor="file"></d:field>
+				<d:field columnWidth="0.7" name="file" id="file_cmp" anchor="90%" required="true" prompt="附 件" editor="file" />
 				<d:field columnWidth="0.3" width="80" editor="button" name="querybtn" prompt="上传">
-					<d:event name="click" handle="upload"></d:event>
+					<d:event name="click" handle="upload" />
 				</d:field>
 			</d:line>
 	    </d:form>	

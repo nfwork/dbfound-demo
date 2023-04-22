@@ -4,6 +4,6 @@
 
 	<devMode value="true" />
 
-	<action name="sys/role" class="com.nfwork.demo.sys.RoleControl" />
+	<action name="sys/role" class="com.nfwork.demo.control.RoleControl" />
 	
 </dbfound-mvc>
