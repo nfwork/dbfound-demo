@@ -12,8 +12,8 @@
 			<properties>
 				<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 				<property name="url" value="jdbc:mysql://smysql01.sz.gomo.com/dbfound?useUnicode=true&amp;characterEncoding=utf8" />
-				<property name="username" value="" />
-				<property name="password" value="" />
+				<property name="username" value="jbjava" />
+				<property name="password" value="jb98" />
 				<property name="initialSize" value="5" />
 				<property name="maxActive" value="10" />
 				<property name="maxIdle" value="5" />
