@@ -29,34 +29,30 @@
 		</sql>
 	</query>
 
-	<execute name="add">
+	<execute name="add" adapter="com.nfwork.demo.adapter.UploadAdapter">
 		<param name="file_id" UUID="true" />
-		<param name="file_name" dataType="varchar" />
-		<param name="file_type" dataType="varchar" />
-		<param name="file_size" dataType="varchar" />
-		<param name="table_name" dataType="varchar" />
-		<param name="pk_value" dataType="varchar" />
-		<param name="file" dataType="file" />
+		<param name="table_name" dataType="varchar" scope="param" />
+		<param name="pk_value" dataType="varchar" scope="param" />
 		<sqls>
-			<executeSql>
-	          <![CDATA[
-	             insert into sys_upload_file
-	                   (file_id,
-	                    file_name,
-	                    file_content,
-	                    file_type,
-	                    file_size,
-	                    table_name,
-	                    pk_value)
-	             values (${@file_id},
-	                    ${@file_name},
-	                    ${@file},
-	                    ${@file_type},
-	                    ${@file_size},
-	                    ${@table_name},
-	                    ${@pk_value})
-	          ]]>
-			</executeSql>
+			<batchSql sourcePath="files">
+				<executeSql>
+					 insert into sys_upload_file
+						   (file_id,
+							file_name,
+							file_content,
+							file_type,
+							file_size,
+							table_name,
+							pk_value)
+					 values (${@file_id},
+							${@name},
+							${@content},
+							${@content_type},
+							${@size},
+							${@table_name},
+							${@pk_value})
+				</executeSql>
+			</batchSql>
 		</sqls>
 	</execute>
 
