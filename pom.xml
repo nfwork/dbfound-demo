@@ -30,12 +30,12 @@
 		<dependency>
 			<groupId>com.github.nfwork</groupId>
 			<artifactId>dbfound</artifactId>
-			<version>3.3.11</version>
+			<version>3.4.0</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.12</version>
 		</dependency>
 	</dependencies>
 
