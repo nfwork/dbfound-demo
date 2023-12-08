@@ -32,9 +32,15 @@
 		    	        Ext.getBody().unmask();
 				    	fileGrid.query();
 				    }, 
-				    failure:function(response,action){ 
-				    	Ext.getBody().unmask();
-				    	alert(action.result.message +"!");
+				    failure:function(response,action){
+						let text = action.response.responseText.replace(/<.*?>/ig,"")
+						let obj = Ext.decode(text);
+						Ext.getBody().unmask();
+						if(obj.success) {
+							fileGrid.query();
+						}else{
+							$D.showError(obj.message +"!");
+						}
 				    } 
 			});	  
 		 }else{
