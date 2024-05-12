@@ -58,7 +58,7 @@
 			<d:button id="query" title="查询" click="query" />
 			<d:button title="重置" click="reset" />
 		</d:buttonGroup>
-		<d:grid id="jobGrid" title="作业列表" height="350"  queryForm="queryForm" queryUrl="modules/job/myJobQuery.jsp" selectable="true" autoQuery="true">
+		<d:grid id="jobGrid" title="作业列表" height="350"  queryForm="queryForm" queryUrl="job/jobLine.query" selectable="true" autoQuery="true">
 			<d:columns>
 			    <d:column name="title" renderer="gotoDetail"  prompt="作业题目" width="130" />
 			    <d:column name="att_num" align="center" renderer="upAttuchement" prompt="作业附件" width="70" />

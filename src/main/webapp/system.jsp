@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@page import="com.nfwork.dbfound.util.LogUtil"%>
 <%@ page import="com.nfwork.dbfound.core.DBFoundConfig" %>
 <%@ taglib uri="dbfound-tags" prefix="d"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -10,7 +9,7 @@
 	<script type="text/javascript">
 	function openLog() {
 		Ext.Ajax.request( {
-			url : 'log.execute?open=1',
+			url : 'log.do?open=1',
 			params : null,
 			success : function(response, action) {
 				var obj = Ext.util.JSON.decode(response.responseText);
@@ -24,7 +23,7 @@
 
 	function closeLog() {
 		Ext.Ajax.request( {
-			url : 'log.execute?open=0',
+			url : 'log.do?open=0',
 			params : null,
 			success : function(response, action) {
 				var obj = Ext.util.JSON.decode(response.responseText);

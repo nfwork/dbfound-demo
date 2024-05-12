@@ -37,7 +37,7 @@
 				   <d:event name="enter" handle="query"/>
 				</d:field>
 				<d:field name="user_name" anchor="85%" editor="lov" lovUrl="modules/sys/userLov.jsp" lovHeight="445" lovWidth="600" prompt="最后经办人">
-				   <d:event name="commit" handle="commit"></d:event>
+				   <d:event name="commit" handle="commit"/>
 				</d:field>
 			</d:line>
 			<d:line columnWidth="0.33">

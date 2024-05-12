@@ -40,7 +40,7 @@
 			WHERE e.employee_id = r.employee_id
 			    AND p.project_id = r.project_id
 			    #AND_CLAUSE#
-			GROUP BY e.employee_code, e.employee_name, p.project_name, p.price
+			GROUP BY  e.employee_id, e.employee_code, e.employee_name, p.project_id, p.project_name, p.price
 		   ]]>
 		</sql>
 		<filter name="project_id" express="p.project_id = ${@project_id}"/>

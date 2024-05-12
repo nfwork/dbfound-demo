@@ -1,4 +1,4 @@
-package com.nfwork.demo.dto;
+package com.nfwork.demo.entity;
 
 import java.util.Date;
 

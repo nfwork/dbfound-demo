@@ -2,8 +2,5 @@
 <dbfound-mvc xmlns="http://dbfound.googlecode.com/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://dbfound.googlecode.com/mvc https://raw.githubusercontent.com/nfwork/dbfound/master/tags/mvc.xsd">
 
-	<devMode value="true" />
 
-	<action name="sys/role" class="com.nfwork.demo.control.RoleControl" />
-	
 </dbfound-mvc>

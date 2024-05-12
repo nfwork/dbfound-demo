@@ -62,7 +62,7 @@
 			<d:toolBar>
 				<d:gridButton type="add" afterAction="initDefaultValue"/>
 				<d:gridButton type="save" />
-				<d:gridButton type="delete"></d:gridButton>
+				<d:gridButton type="delete"/>
 			</d:toolBar>
 			<d:columns>
 				<d:column name="user_code" sortable="true" upper="true" required="true" editor="textfield" prompt="用户编号" width="120" />

@@ -14,14 +14,15 @@
 				<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1/dbfound?useUnicode=true&amp;characterEncoding=utf8" />
 				<property name="username" value="dbfound" />
 				<property name="password" value="dbfound" />
-				<property name="minimumIdle" value="5" />
+				<property name="minimumIdle" value="2" />
 				<property name="maximumPoolSize" value="5" />
 			</properties>
 		</dataSourceConnectionProvide>
 	</database>
 
 	<web>
-		<interceptor>com.nfwork.demo.check.AccessCheckInterceptor</interceptor>
+		<interceptor>com.nfwork.demo.interceptor.AccessCheckInterceptor</interceptor>
+		<controllerPaths>com.nfwork.demo.controller</controllerPaths>
 	</web>
 
 </dbfound>

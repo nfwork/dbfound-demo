@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://dbfound.googlecode.com/model" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://dbfound.googlecode.com/model https://raw.githubusercontent.com/nfwork/dbfound/master/tags/model.xsd">
+	
+	<query>
+		<sql>
+			 select
+			    <sqlPart type="if" condition="${@group} is null">
+					id,time,ip,url,status,cost,size,ua, 1 as times
+				</sqlPart>
+				<sqlPart type="if" condition="${@group} is not null">
+					#{@group}, count(1) times, sum(size) as size
+				</sqlPart>
+			 from access_log t
+			 #WHERE_CLAUSE#
+			 <sqlPart type="if" condition="${@group} is not null">
+				 group by #{@group} order by times desc
+			 </sqlPart>
+		</sql>
+		<filter name="ip" dataType="varchar" express="ip like ${@ip}" />
+		<filter name="ua" dataType="varchar" express="ua like ${@ua}" />
+		<filter name="url" dataType="varchar" express="url like ${@url}" />
+		<filter name="status" dataType="varchar" express="status = ${@status}" />
+	</query>
+
+	<execute name="import">
+		<param name="file" dataType="file"/>
+		<sqls>
+			<excelReader sourceParam="file" rootPath="datas"/>
+			<execute name="truncate" />
+			<batchSql sourcePath="datas">
+				<execute name="add" />
+			</batchSql>
+		</sqls>
+	</execute>
+
+	<execute name="add">
+		<param name="time" dataType="varchar" />
+		<param name="ip" dataType="varchar" />
+		<param name="url" dataType="varchar" />
+		<param name="status" dataType="number" />
+		<param name="cost" dataType="number" />
+		<param name="size" dataType="number" />
+		<param name="ua" dataType="varchar" />
+		<sqls>
+			<batchExecuteSql sourcePath="value" batchSize="500">
+				insert into access_log(
+						time,
+						ip,
+						url,
+						status,
+						cost,
+						size,
+						ua)
+				values
+				#BATCH_TEMPLATE_BEGIN#
+				       (${@time},
+						${@ip},
+						${@url},
+						${@status},
+						${@cost},
+						${@size},
+						${@ua})
+				#BATCH_TEMPLATE_END#
+			</batchExecuteSql>
+		</sqls>
+	</execute>
+
+	<execute name="truncate">
+		<sqls>
+			<executeSql>
+				truncate access_log
+			</executeSql>
+		</sqls>
+	</execute>
+
+</model>
