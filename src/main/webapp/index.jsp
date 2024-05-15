@@ -147,8 +147,9 @@
 			});
 		</script>
 		
-		<div style="background-color:#306091;position:absolute;top:0;left:0;z-index:1;width:100%;">
-	        <img style="float:left;margin-left:10px;margin-top:2px;width:160px;height:35px;" src="images/logo.png"/>
+		<div style="background-color:#3770ab;position:absolute;top:0;left:0;z-index:1;width:100%;">
+<%--			<img style="float:left;margin-left:10px;margin-top:2px;width:160px;height:35px;" src="images/logo.png"/>--%>
+			<font style="float:left;margin-left:5px;margin-top:5px;width:200px;height:28px;" color="#ffffff" size="5"><b>dbfound-demo</b></font>
 	        <div style="margin-left:0px;background-color:#306091;height:40px;font-weight:bold;line-height:30px;">
 	            <table style="float:right;margin-top:7px;">
 	                <tr>

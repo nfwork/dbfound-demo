@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>com.github.nfwork</groupId>
 			<artifactId>dbfound</artifactId>
-			<version>3.4.8</version>
+			<version>3.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>

@@ -64,7 +64,7 @@
 	<body>
 	    <d:initProcedure>
 	        <d:dataSet id="statusStore" modelName="job/jobStatus" queryName="priority_combo" />
-	        <d:query modelName="job/jobHeader" queryName="update_query" rootPath="headerStore"></d:query>
+	        <d:query modelName="job/jobHeader" queryName="update_query" rootPath="request.headerStore"/>
 	    </d:initProcedure>
 	    
 		<d:form id="headerForm" title="作业信息查询" labelWidth="80">
@@ -83,8 +83,8 @@
 			</d:line>
 		</d:form>
 		<d:buttonGroup>
-		   <d:button title="返回" click="close" ></d:button>
-		   <d:button click="submit" title="完成" ></d:button>
+		   <d:button title="返回" click="close" />
+		   <d:button click="submit" title="完成" />
 		</d:buttonGroup>
 		<d:grid id="jobGrid" height="270" model="job/jobCheck" queryUrl="job/jobCheck.query!checkData?header_id=${param.header_id}" autoQuery="true" pagerSize="50">
 			<d:toolBar>
