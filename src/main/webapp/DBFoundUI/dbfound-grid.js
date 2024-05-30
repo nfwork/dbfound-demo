@@ -326,5 +326,6 @@ Ext.override(Ext.grid.EditorGridPanel, {
 	layout:"fit",
 	clicksToEdit:1,
 	columnLines:true,
-	exportMappers:{}
+	exportMappers:{},
+	exportFormats:{}
 });

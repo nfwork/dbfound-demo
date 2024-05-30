@@ -2,7 +2,7 @@
  * 定义DBFound对象 提供公用的方法
  ******************************************************************************/
 $D = DBFound = {
-	FieldReadOnlyBackground:"#eee",	
+	FieldReadOnlyBackground:"#eee",
 	showMessage : function(message, fn) {
 		Ext.MessageBox.show( {
 			title : '提示',
@@ -45,7 +45,7 @@ $D = DBFound = {
 		if(!maskTitle){
 			maskTitle = "正在提交.......";
 		}
-		
+
 		for ( var attr in param) {
 			var o = param[attr];
 			if(o instanceof Object){
@@ -58,13 +58,13 @@ $D = DBFound = {
 			div = document.getElementById("dbfoundMask");
 			if(div && div !=null){
 				div.style.display = "";
-				div.style.width = document.body.clientWidth; 
-				div.style.height = document.body.clientHeight; 
+				div.style.width = document.body.clientWidth;
+				div.style.height = document.body.clientHeight;
 				div.style.top = d.top;
 			}else {
 				div = document.createElement("div");
-				div.style.width = document.body.clientWidth; 
-				div.style.height = document.body.clientHeight; 
+				div.style.width = document.body.clientWidth;
+				div.style.height = document.body.clientHeight;
 				div.style.position = "absolute";
 				div.style.top = d.top;
 				div.id = "dbfoundMask";
@@ -138,7 +138,7 @@ $D = DBFound = {
 				}
 			}
 		}
-		
+
 		var successFunction = function(obj,response, action) {
 			var message = obj.message;
 			if(message == "success"){
@@ -171,13 +171,13 @@ $D = DBFound = {
 		var start = param.start;
 		delete param.limit;
 		delete param.start;
-	    
+
 	    $D.request(action,param,successFunction,true);
-	    
+
 	    /*恢复baseParam请求前数据*/
 	    param.limit = limit;
 	    param.start = start;
-	    delete param.GridData; 
+	    delete param.GridData;
 	},
 	openPostWindow : function(url, columns, parameters) {
 		var oForm = document.createElement("form");
@@ -207,7 +207,7 @@ $D = DBFound = {
 		Ext.fly(oForm).remove();
 	},
 	exportExcel : function(grid, url) {
-		queryForm  = grid.getStore().queryForm;
+		let queryForm  = grid.getStore().queryForm;
 		if(queryForm){
 		   if (!queryForm.form.isValid()) {
 			   $D.showMessage('验证通不过！');
@@ -222,7 +222,8 @@ $D = DBFound = {
 					"name" : columns[i].dataIndex,
 					"content" : columns[i].header,
 					"width" : columns[i].width,
-					"mapper": grid.exportMappers[columns[i].dataIndex]
+					"mapper": grid.exportMappers[columns[i].dataIndex],
+					"format": grid.exportFormats[columns[i].dataIndex],
 				};
 				cls[i] = cl;
 			}
@@ -234,12 +235,86 @@ $D = DBFound = {
 			var start = baseParams.start;
 			delete baseParams.limit;
 			delete baseParams.start;
-		    DBFound.openPostWindow(url, Ext.util.JSON.encode(cls), Ext.util.JSON.encode(baseParams));
+			DBFound.doExport(url,cls,baseParams);
 		    baseParams.limit = limit;
 		    baseParams.start = start;
 		});
 	},
+	doExport: function(url, columns, parameters) {
+		Ext.getBody().mask('正在请求数据...', 'x-mask-loading');
+		// 创建xhr对象
+		var xhr = new XMLHttpRequest();
+		// 设置响应返回的数据格式
+		xhr.responseType = "blob";
+		// 创建一个 post 请求，采用异步
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		// 注册相关事件回调处理函数
+		xhr.onprogress = function (evt) {
+			if (evt.lengthComputable) {
+				let percent = evt.loaded / evt.total;
+				let progress = Math.floor(percent * 100);
+				Ext.getBody().unmask();
+				Ext.getBody().mask('正在下载...' + progress + "%", 'x-mask-loading');
+			}
+		}
+		xhr.onload = function () {
+			let filename = xhr.getResponseHeader("Content-Disposition");
+			if(filename){
+				filename = decodeURI(filename);
+				let index  = filename.indexOf("=");
+				if(index > -1){
+					filename = filename.substring(index+1)
+				}
+			}
 
+			let contentLength = xhr.getResponseHeader("Content-Length");
+			if(contentLength) {
+				contentLength = contentLength * 1;
+			}
+			let delay = 500;
+			if(contentLength > 200 * 1024 * 1024){
+				delay = 3000;
+			}else if(contentLength > 100 * 1024 * 1024){
+				delay = 2000;
+			}else if(contentLength > 50 * 1024 * 1024){
+				delay = 1000;
+			}
+
+			Ext.getBody().unmask();
+			// 请求完成
+			if (this.status === 200) {
+				Ext.getBody().mask('文件加载中...', 'x-mask-loading');
+				var blob = this.response;
+				// 判断是否是IE浏览器，是的话返回true
+				if (window.navigator.msSaveBlob) {
+					try {
+						window.navigator.msSaveBlob(blob, filename);
+					} catch (e) {
+						console.log(e);
+					}
+				} else {
+					var a = document.createElement('a');
+					a.download = filename;
+					a.href = URL.createObjectURL(blob);
+					a.click();
+					URL.revokeObjectURL(a.href);
+				}
+				setTimeout(() => {
+					Ext.getBody().unmask();
+				}, delay);
+			} else {
+				$D.showError('导出失败');
+			}
+		};
+		//发送数据
+		let json = {
+			"parameters" : parameters,
+			"columns" : columns
+		}
+		let body = Ext.util.JSON.encode(json);
+		xhr.send(body);
+	},
 	/**
 	 * *** 格式化 grid中 日期控件
 	 */
@@ -333,7 +408,7 @@ $D = DBFound = {
 		}else{
 			url = url+"?windowId="+id;
 		}
-		
+
 		if (!closeFunction){
 			closeFunction = function() {};
 		}
@@ -367,7 +442,7 @@ $D = DBFound = {
 		var of = style.overflow;
 		style.overflow = "hidden";
 		win.on("close",function(){style.overflow = of;});
-		
+
 		win.show();
 		win.setTitle(title);
 		return win;
@@ -384,7 +459,7 @@ $D = DBFound = {
 			}
 		});
 		var win = Ext.getCmp(winId);
-		
+
 		win.commit=function(json){
 			field.fireEvent('commit',json,colName,field);
 			win.close();
@@ -511,7 +586,7 @@ $D = DBFound = {
 		if(document.body && document.body.clientHeight>height){
 			height=document.body.clientHeight;
 		}
-		
+
 		if(!id){
 			return height;
 		}else{
@@ -534,7 +609,7 @@ $D = DBFound = {
 		if(document.body && document.body.clientWidth > width){
 			width=document.body.clientWidth;
 		}
-		
+
 		if(!id){
 			return width;
 		}else{
@@ -686,7 +761,7 @@ Ext.override(Ext.FormPanel, {
 					   json[key] = null;
 				   }
 			  }
-			}catch(e){}  
+			}catch(e){}
 		}
 	}
 });
@@ -723,7 +798,7 @@ Ext.override(Ext.tree.TreePanel, {
 		nodes = this.getChecked();
 		var text="";
 		for(var i=0;i<nodes.length;i++){
-			text = text + nodes[i].text; 
+			text = text + nodes[i].text;
 			if(i<nodes.length-1){
 				text = text+", ";
 			}
@@ -734,7 +809,7 @@ Ext.override(Ext.tree.TreePanel, {
     	nodes = this.getChecked();
 		var id="";
 		for(var i=0;i<nodes.length;i++){
-			id = id + nodes[i].id; 
+			id = id + nodes[i].id;
 			if(i<nodes.length-1){
 				id = id+",";
 			}
