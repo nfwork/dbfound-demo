@@ -259,6 +259,24 @@ $D = DBFound = {
 			}
 		}
 		xhr.onload = function () {
+
+			//如果响应为json，则导出失败，需要处理错误提醒
+			let contentType = xhr.getResponseHeader("Content-Type");
+			if(contentType.indexOf("application/json")>-1){
+				Ext.getBody().unmask();
+				const reader = new FileReader();
+				reader.onload = function(event) {
+					let res = Ext.util.JSON.decode(event.target.result);
+					if(res.message){
+						$D.showError(res.message)
+					}else{
+						$D.showError(event.target.result)
+					}
+				};
+				reader.readAsText(xhr.response,"utf-8");
+				return;
+			}
+
 			let filename = xhr.getResponseHeader("Content-Disposition");
 			if(filename){
 				filename = decodeURI(filename);
