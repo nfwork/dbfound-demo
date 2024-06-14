@@ -946,3 +946,12 @@ Ext.EventManager.on(Ext.isIE ? document : window, 'keydown', function(e, t) {
 		e.stopEvent();
 	}
 });
+
+/**
+ * 去掉文件上传<pre>标签
+ */
+Ext.Ajax.on('requestcomplete', (conn, response, options)=>{
+	if(options.isUpload){
+		response.responseText = response.responseText.replace(/<.*?>/ig,"")
+	}
+});

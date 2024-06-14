@@ -23,25 +23,24 @@
 	function upload(){
 		 target = Ext.get("file_cmp").dom;
 		 if (uploadform.form.isValid()) {
-			 if(checkFileSize(target)==false)return;
+			 if(checkFileSize(target)===false)return;
 			 Ext.getBody().mask('正在上传附件，请耐心等待.......', 'x-mask-loading');
 		     uploadform.form.submit({ 
-				    url:'upload.execute!add?pk_value=${param.pk_value}&table_name=${param.table_name}',
-				    method:'post',
-				    success:function(response, action){ 
-		    	        Ext.getBody().unmask();
-				    	fileGrid.query();
-				    }, 
-				    failure:function(response,action){
-						let text = action.response.responseText.replace(/<.*?>/ig,"")
-						let obj = Ext.decode(text);
-						Ext.getBody().unmask();
-						if(obj.success) {
-							fileGrid.query();
-						}else{
-							$D.showError(obj.message +"!");
-						}
-				    } 
+				url:'upload.execute!add?pk_value=${param.pk_value}&table_name=${param.table_name}',
+				method:'post',
+				success:function(form, action){
+					Ext.getBody().unmask();
+					if(action.result.success){
+						fileGrid.query();
+					}else{
+						$D.showError(action.result.message);
+					}
+				},
+				failure:function(form,action){
+					Ext.getBody().unmask();
+					let text = action.response.responseText;
+					$D.showError(text);
+				}
 			});	  
 		 }else{
 			 $D.showMessage('请选择上传文件！');
@@ -80,8 +79,7 @@
 			  <d:gridButton type="delete" />
 			</d:toolBar>
 			<d:columns>
-				<d:column name="file_name" renderer="openFile" prompt="文件名"
-					width="280" />
+				<d:column name="file_name" renderer="openFile" prompt="文件名" width="280" />
 				<d:column name="file_type" prompt="文件类型" width="200" />
 				<d:column name="file_size" prompt="文件大小" width="100" />
 			</d:columns>
