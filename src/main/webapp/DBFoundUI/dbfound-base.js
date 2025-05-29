@@ -220,7 +220,7 @@ $D = DBFound = {
 			if (columns[i].dataIndex != "") {
 				var cl = {
 					"name" : columns[i].dataIndex,
-					"content" : columns[i].header,
+					"title" : columns[i].header,
 					"width" : columns[i].width,
 					"mapper": grid.exportMappers[columns[i].dataIndex],
 					"format": grid.exportFormats[columns[i].dataIndex],
