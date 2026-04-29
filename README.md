@@ -91,10 +91,11 @@ DBFound 的主配置在 `src/main/resources/dbfound-conf.xml`。
 `system` 节点中的 `camelCaseToUnderscore` 用于 Java 对象 JSON 序列化时，将驼峰字段名转换为下划线字段名：
 
 ```xml
-<camelCaseToUnderscore>true</camelCaseToUnderscore>
+<system>
+   <camelCaseToUnderscore>true</camelCaseToUnderscore>
+</system>
 ```
-
-该配置不会影响 `ResponseObject`、`queryResponseObject` 的输出结构，主要用于兼容 `DBFoundUI` 对下划线字段名的使用习惯。
+该配置不会影响 `ResponseObject`、`queryResponseObject` 的输出结构，`totalCounts`、`outParam`依然会保持驼峰，主要为了兼容 `DBFoundUI` 内置字段名，使其正常运行。
 
 ### Web 配置
 
@@ -107,7 +108,7 @@ DBFound 的主配置在 `src/main/resources/dbfound-conf.xml`。
 </web>
 ```
 
-## DBFound MVC 说明
+### mvc 配置
 
 项目的 Web 入口配置在 `src/main/webapp/WEB-INF/web.xml`：
 
@@ -122,9 +123,10 @@ DBFound 的主配置在 `src/main/resources/dbfound-conf.xml`。
 </filter-mapping>
 ```
 
+## jsp页面
 页面通过 `dbfound-tags` 标签和 XML Model 绑定数据。例如 `index.jsp` 中使用 `menu` model 加载功能菜单：
 
-```jsp
+```xml
 <d:initProcedure>
     <d:dataSet id="menuStore" modelName="menu"></d:dataSet>
 </d:initProcedure>
