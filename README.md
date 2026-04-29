@@ -82,6 +82,31 @@
    密码：admin
    ```
 
+## 配置说明
+
+DBFound 的主配置在 `src/main/resources/dbfound-conf.xml`。
+
+### JSON 序列化
+
+`system` 节点中的 `camelCaseToUnderscore` 用于 Java 对象 JSON 序列化时，将驼峰字段名转换为下划线字段名：
+
+```xml
+<camelCaseToUnderscore>true</camelCaseToUnderscore>
+```
+
+该配置不会影响 `ResponseObject`、`queryResponseObject` 的输出结构，主要用于兼容 `DBFoundUI` 对下划线字段名的使用习惯。
+
+### Web 配置
+
+`web` 节点配置了拦截器和 Controller 扫描路径：
+
+```xml
+<web>
+    <interceptor>com.nfwork.demo.interceptor.AccessCheckInterceptor</interceptor>
+    <controllerPaths>com.nfwork.demo.controller</controllerPaths>
+</web>
+```
+
 ## DBFound MVC 说明
 
 项目的 Web 入口配置在 `src/main/webapp/WEB-INF/web.xml`：
@@ -95,15 +120,6 @@
     <filter-name>DBFound</filter-name>
     <url-pattern>/*</url-pattern>
 </filter-mapping>
-```
-
-DBFound 的主配置在 `src/main/resources/dbfound-conf.xml`，其中配置了数据源、拦截器和 Controller 扫描路径：
-
-```xml
-<web>
-    <interceptor>com.nfwork.demo.interceptor.AccessCheckInterceptor</interceptor>
-    <controllerPaths>com.nfwork.demo.controller</controllerPaths>
-</web>
 ```
 
 页面通过 `dbfound-tags` 标签和 XML Model 绑定数据。例如 `index.jsp` 中使用 `menu` model 加载功能菜单：
