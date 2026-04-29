@@ -4,7 +4,7 @@
 
 	<system>
 		<modelModifyCheck>true</modelModifyCheck>
-		<camelCaseToUnderscore>true</camelCaseToUnderscore>
+		<camelCaseToUnderscore>true</camelCaseToUnderscore> <!-- java对象序列号时，驼峰转化为下划线 -->
 	</system>
 
 	<database>
