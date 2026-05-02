@@ -1,0 +1,9 @@
+.git
+.idea
+*.iml
+*.ipr
+*.iws
+.DS_Store
+
+target/*
+!target/*.war
