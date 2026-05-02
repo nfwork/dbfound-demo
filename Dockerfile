@@ -1,4 +1,4 @@
-FROM tomcat:9.0-jdk11-temurin
+FROM tomcat:10.1-jdk11-temurin
 
 ARG WAR_FILE
 
