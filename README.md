@@ -38,7 +38,7 @@
 
 ## 环境要求
 
-- JDK 8+
+- JDK 11+
 - Maven 3+
 - MySQL
 - Tomcat 或其他支持 Servlet/JSP 的 Web 容器
