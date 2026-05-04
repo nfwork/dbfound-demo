@@ -23,6 +23,7 @@
 	<web>
 		<interceptor>com.nfwork.demo.interceptor.AccessCheckInterceptor</interceptor>
 		<controllerPaths>com.nfwork.demo.controller</controllerPaths>
+		<basePath>${@contextPath}</basePath>
 	</web>
 
 </dbfound>
